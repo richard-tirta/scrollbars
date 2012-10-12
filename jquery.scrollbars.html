@@ -1,0 +1,88 @@
+<!-- jQuery UI Custom Scrollbar with mousewheel
+Dependencies: jQuery, jQuery UI, jQuery Mousewheel. -->
+
+<html>
+<script>
+$(function _showScrollBar() {
+	var scrollPane = $('.slider_container');
+	var scrollContent = $('.scroll-content');
+	var scrollHeight = 100;
+
+	// Slider
+	$('#slider').slider({
+		orientation : 'vertical',
+		value : 100,
+		slide : function(event, ui) {
+		console.log(ui.value);
+		console.log(scrollPane.height());
+
+		if (scrollContent.height() > scrollPane.height()) {
+			 scrollContent.css('margin-top', (-1 * (scrollPane.height() - ((scrollPane.height() * ui.value) / 100))) + 'px');
+		} else {
+			 scrollContent.css('margin-top', 0);
+		}
+		}
+	});
+
+	$(function() {
+		$('.scroll-content').bind('mousewheel', function(event, delta) {
+		//_log(delta);
+		//_log(scrollHeight);
+		if (delta > 0 && scrollHeight < 100) {
+
+			$('.scroll-content').animate({marginTop : '+=10px'}, 10, 'swing');
+			$('.ui-slider-handle').animate({bottom : '+=10%'}, 10, 'swing');
+			
+			scrollHeight += 10;
+		
+		} else if (delta < 0 && scrollHeight > 0) {
+			$('.scroll-content').animate({marginTop : '-=10px'}, 10, 'swing');
+			$('.ui-slider-handle').animate({bottom : '-=10%'}, 10, 'swing');
+			
+			 scrollHeight -= 10;
+		 }
+		
+		return false;
+	});
+});
+
+});
+</script>
+
+<style type="text/css">
+.ui-slider-vertical {
+	width: .8em;
+	height: 450px !important;
+	margin: 20px 0 0 10px;
+}
+
+#slider{
+	position:absolute;
+	top:30px;
+	right:35px;
+} 
+
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
+    background: url("images/scroll.png") no-repeat scroll 50% 50% #000 !important;
+}
+
+.ui-slider .ui-slider-handle{
+	height:25px !important;
+}
+
+.ui-widget-content {
+	background: none !important;
+	border: none !important;
+	border-right: 1px solid #CCC !important;
+}
+</style>
+
+<div id="slider"></div>
+<div class="slider_container">
+	<div class="scroll-content">
+		Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer viverra, velit vitae luctus sodales, quam ligula feugiat neque, eget gravida diam augue accumsan risus. Etiam feugiat, eros ut consequat lobortis, nisi nisl lacinia ipsum, ut egestas turpis sapien in magna. Maecenas id lacus odio, non eleifend lacus. Proin in ante eu neque mollis lobortis. Phasellus tempor, sem eu molestie scelerisque, orci libero mollis risus, at bibendum orci felis nec velit. Phasellus id sem non nisl volutpat venenatis. Nunc sit amet sapien massa, in congue ipsum. Sed vel lacus justo.
+
+		Integer id nunc nec turpis varius pharetra ac eu ante. Proin consequat sapien vitae lectus imperdiet convallis. Sed in lectus vitae purus dignissim tristique. Sed aliquam leo at augue iaculis ut pulvinar massa sodales. Mauris et nisi eu neque fermentum venenatis eget eget tellus. Aliquam erat volutpat. Praesent eget risus odio. Phasellus enim tortor, laoreet a ultrices at, lacinia a orci. Duis tincidunt, metus sed hendrerit tincidunt, tortor eros venenatis nibh, ut cursus leo massa eget nulla. Praesent pellentesque imperdiet ante, a malesuada metus tempor id. Curabitur volutpat lectus sed dui vestibulum et malesuada urna mattis. Maecenas rutrum rhoncus tortor pretium mollis. Curabitur blandit nisi quis diam auctor sed iaculis augue blandit. Sed at ipsum nec risus semper tincidunt. Donec eu sem quam, id viverra magna.
+	</div>
+</div>
+</html>
